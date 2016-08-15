@@ -1,53 +1,43 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+ //import code we need
+var React = require('react-native');
+var AppRegistry = React.AppRegistry;
+var Text = React.Text;
+var View = React.View;
+var StyleSheet = React.StyleSheet;
+var DayItem = require('./src/day-item');
 
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+var DAYS = [
+  'Sunday', 'Monday', 'Tuesday', 'Wednesday', 
+  'Thursday', 'Friday', 'Saturday'
+]
 
-class weekdays extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    );
+ // Create a react component
+var Weekdays = React.createClass({
+  render: function(){
+    return <View style={styles.container}>
+      <Text>
+        Days of the Week:
+      </Text>
+      {this.days()}
+    </View>
+  },
+  days: function() {
+    return DAYS.map(function(day){
+      return <DayItem day={day} />
+    });
   }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
 });
 
-AppRegistry.registerComponent('weekdays', () => weekdays);
+ //Style the React Component
+ var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center', //Moves up and down
+    alignItems: 'center' //Moves left to right
+  }
+ });
+
+ // Show react component on the screen
+ AppRegistry.registerComponent('weekdays', function() {
+  return Weekdays
+ });
