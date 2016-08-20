@@ -1,4 +1,5 @@
  //import code we need
+var Moment = require('moment');
 var React = require('react-native');
 var AppRegistry = React.AppRegistry;
 var Text = React.Text;
@@ -6,25 +7,25 @@ var View = React.View;
 var StyleSheet = React.StyleSheet;
 var DayItem = require('./src/day-item');
 
-var DAYS = [
-  'Sunday', 'Monday', 'Tuesday', 'Wednesday', 
-  'Thursday', 'Friday', 'Saturday'
-]
+
 
  // Create a react component
 var Weekdays = React.createClass({
   render: function(){
     return <View style={styles.container}>
-      <Text>
-        Days of the Week:
-      </Text>
       {this.days()}
     </View>
   },
   days: function() {
-    return DAYS.map(function(day){
-      return <DayItem day={day} />
-    });
+    var daysItems = [];
+
+    for(var i=1;i < 8; i++) {
+      var day = Moment().add(i, 'days').format('dddd');
+      daysItems.push(
+        <DayItem day={day} daysUntil={i} />
+      )
+    }
+    return daysItems;
   }
 });
 
